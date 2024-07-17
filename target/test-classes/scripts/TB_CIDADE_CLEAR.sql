@@ -1,0 +1,1 @@
+delete from TB_CIDADE;

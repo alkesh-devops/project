@@ -1,0 +1,3 @@
+insert into TB_CLIENTE(id, NOME_COMPLETO, sexo, DATA_NASCIMENTO, cidade)values(1,'Marcelo Lúcio', 'M',parsedatetime('1982-05-11', 'yyyy-MM-dd'),20);
+insert into TB_CLIENTE(id, NOME_COMPLETO, sexo, DATA_NASCIMENTO, cidade)values(2,'Marcelo Nogueira', 'M',parsedatetime('1983-05-11', 'yyyy-MM-dd'),20);
+insert into TB_CLIENTE(id, NOME_COMPLETO, sexo, DATA_NASCIMENTO, cidade)values(3,'João Marcelo', 'M',parsedatetime('1984-05-11', 'yyyy-MM-dd'),20);
