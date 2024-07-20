@@ -2,19 +2,19 @@ pipeline {
     agent any
     
     stages {
-        stage('Build dockerfile') {
+        stage('checkout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Tushar-Gayakwad/Java-app.git']]])
-                sh 'docker build -t tushargayakwad/java-images .'
             }
         }
 
-        stage('Push image to Hub') {
+        stage('Build & Push image to Hub') {
             steps {
                 script {
                     withCredentials([string(credentialsId: '1afba1db-e2c6-4fc2-9b71-d05e956fff7e', variable: 'dockerpws')]) {
                         sh "docker login -u tushargayakwad -p ${dockerpws}"
                     }
+                    sh 'docker build -t tushargayakwad/java-images .'
                     sh 'docker push tushargayakwad/java-images'
                 }
             }
@@ -24,6 +24,7 @@ pipeline {
             steps {
                 script {
                     sh 'kubectl apply -f deployment.yml'
+                    sh 'minikube service java-deployment --url'
                 }
             }
         }
