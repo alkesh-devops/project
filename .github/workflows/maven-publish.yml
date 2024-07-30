@@ -1,0 +1,30 @@
+name: Java App Deployment
+
+on:
+  push:
+    branches:
+      - main  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+      - name: Build and push  Docker image
+        run: |
+          docker build -t tushargayakwad/java-images .
+          docker push tushargayakwad/java-images
+      
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f deployment.yml
+          minikube service java-deployment --url
