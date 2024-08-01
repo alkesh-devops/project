@@ -27,6 +27,5 @@ jobs:
       
       - name: Deploy to Kubernetes
         run: |
-          kubectl proxy --port=8080
           kubectl apply -f deployment.yml 
           minikube service java-deployment --url
