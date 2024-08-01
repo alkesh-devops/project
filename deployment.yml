@@ -28,6 +28,6 @@ spec:
     app: java-deployment
   ports:
     - protocol: TCP 
-      port: 1029
+      port: 9292
       targetPort: 8080
   type: NodePort
