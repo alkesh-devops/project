@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest  # Corrected from 'ubuntu:latest' to 'ubuntu-latest'
     env:
       AWS_REGION: us-west-1 # Change this to your preferred AWS region
     steps:
