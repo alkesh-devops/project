@@ -45,10 +45,10 @@ jobs:
       # This step can be removed if you've already tagged the image correctly during the build step.
       - name: Tag Docker image
         run: |
-          docker tag ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }} ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }}
+          docker image tag ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }} ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }}
       
       # Push Docker image to Amazon Public ECR
       #docker push ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }}
       - name: Push Docker image
         run: |
-          docker images push http://public.ecr.aws/v1n2o2v1/ishitadocker/ve3-projecct/my-app-image:latest
+          docker image push http://public.ecr.aws/v1n2o2v1/ishitadocker/ve3-projecct/my-app-image:latest
