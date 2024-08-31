@@ -48,4 +48,4 @@ jobs:
       # Push Docker image to Amazon Public ECR
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.PUBLIC_ECR_REPO_URL }}:latest
+          docker push ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:latest
