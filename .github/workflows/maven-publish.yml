@@ -29,9 +29,13 @@ jobs:
           
       # Login to Amazon ECR
       - name: Login to Amazon ECR
-        id: login-ecr
+        #id: login-ecr
         run: |
           aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 551364857603.dkr.ecr.us-west-1.amazonaws.com
+        env:
+          AWS_REGION: us-west-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
               
       # Set up Docker Buildx
