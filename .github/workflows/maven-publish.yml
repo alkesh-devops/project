@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       AWS_REGION: us-west-1
       IMAGE_TAG: latest # or set this dynamically if needed
