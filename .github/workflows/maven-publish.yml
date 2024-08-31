@@ -51,4 +51,4 @@ jobs:
       #docker push ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }}
       - name: Push Docker image
         run: |
-          docker push http://public.ecr.aws/v1n2o2v1/ishitadocker/ve3-projecct/my-app-image:latest
+          docker images push http://public.ecr.aws/v1n2o2v1/ishitadocker/ve3-projecct/my-app-image:latest
