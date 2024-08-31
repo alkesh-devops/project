@@ -30,8 +30,10 @@ jobs:
       # Login to Amazon ECR
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-        
+        run: |
+          aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 551364857603.dkr.ecr.us-west-1.amazonaws.com
+
+              
       # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
