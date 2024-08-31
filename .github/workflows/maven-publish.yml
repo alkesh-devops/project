@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest  # Corrected from 'ubuntu:latest' to 'ubuntu-latest'
+    runs-on: ubuntu-latest
     env:
       AWS_REGION: us-west-1 # Change this to your preferred AWS region
     steps:
@@ -37,8 +37,8 @@ jobs:
 
       # Log in to Amazon Public ECR
       - name: Log in to Amazon ECR
-        run: |
-          aws ecr-public get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
       # Tag Docker image
       - name: Tag Docker image
