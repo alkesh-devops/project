@@ -1,31 +1,51 @@
-name: Java App Deployment
+name: Build and Push to AWS Public ECR
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  build-and-push:
     runs-on: self-hosted
-    
+    env:
+      AWS_REGION: us-west-1 # Change this to your preferred AWS region
     steps:
+      # Checkout code
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Login to Docker Hub
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: |
-          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Build and Push Docker image
+      # Build Docker image
+      - name: Build Docker image
         run: |
-          docker build -t tushargayakwad/java-images .
-          docker push tushargayakwad/java-images
-      
-      - name: Deploy to Kubernetes
+          docker build -t my-app-image:latest .
+
+      # Configure AWS credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Log in to Amazon Public ECR
+      - name: Log in to Amazon ECR
         run: |
-          kubectl apply -f deployment.yml 
-          
+          aws ecr-public get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws
+
+      # Tag Docker image
+      - name: Tag Docker image
+        run: |
+          docker tag my-app-image:latest ${{ secrets.PUBLIC_ECR_REPO_URL }}:latest
+
+      # Push Docker image to Amazon Public ECR
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.PUBLIC_ECR_REPO_URL }}:latest
