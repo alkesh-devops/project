@@ -46,8 +46,9 @@ jobs:
       - name: Tag Docker image
         run: |
           docker tag ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }} ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }}
-
+      
       # Push Docker image to Amazon Public ECR
+      #docker push ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }}
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }}
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
