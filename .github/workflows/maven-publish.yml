@@ -45,9 +45,8 @@ jobs:
       # Build Docker image
       - name: Build Docker image
         run: |
-          docker stop $(docker ps -aq)
-          docker rm $(docker ps -aq)
-          docker build -t ishitadocker/ve3-projecct .
+           docker rmi -f $(docker images -q)
+           docker build -t ishitadocker/ve3-projecct .
 
       # Tag Docker image (Optional)
       # This step can be removed if you've already tagged the image correctly during the build step.
