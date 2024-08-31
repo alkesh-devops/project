@@ -56,6 +56,10 @@ jobs:
       
       # Push Docker image to Amazon Public ECR
       #docker push ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }}
-      - name: Push Docker image
+      - name: Push Docker Image to ECR Public
         run: |
           docker push public.ecr.aws/v1n2o2v1/ishitadocker/ve3-projecct:latest
+        env:
+          AWS_REGION: us-west-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
