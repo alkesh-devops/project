@@ -51,14 +51,14 @@ jobs:
       # This step can be removed if you've already tagged the image correctly during the build step.
       - name: Tag Docker Image
         run: |
-          docker tag ishitadocker/ve3-projecct:latest public.ecr.aws/v1n2o2v1/ishitadocker/ve3-projecct:latest
+          docker tag github-action:latest 551364857603.dkr.ecr.us-west-1.amazonaws.com/github-action:latest
 
       
       # Push Docker image to Amazon Public ECR
       #docker push ${{ secrets.PUBLIC_ECR_REPO_URL }}/my-app-image:${{ secrets.IMAGE_TAG }}
       - name: Push Docker Image to ECR Public
         run: |
-          docker push public.ecr.aws/v1n2o2v1/ishitadocker/ve3-projecct:latest
+          docker push 551364857603.dkr.ecr.us-west-1.amazonaws.com/github-action:latest
         env:
           AWS_REGION: us-west-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
